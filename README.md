@@ -22,10 +22,7 @@ This repository contains a homework assignment for practicing:
 - Add **explicit return types** to all functions
 - Implement all 6 functions using the required methods
 - Do **not** use:
-  - `any`
-  - `reduce`
-  - nested loops (in Task 5)
-  - `console.log`
+  - nested loops 
 - Make sure the file **compiles with `tsc` without errors**
 
 ---

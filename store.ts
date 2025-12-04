@@ -1,14 +1,3 @@
-// store.ts
-// Homework - Online Store System
-// ------------------------------------
-// Instructions:
-// - Add a type for every function parameter.
-// - Add an explicit return type for every function (even if it is void).
-// - Make sure the code compiles without TypeScript errors.
-
-// ------------------------------------
-// Interfaces
-// ------------------------------------
 
 interface Product {
   id: number;
@@ -22,10 +11,6 @@ interface Store {
   storeName: string;
   products: Product[];
 }
-
-// ------------------------------------
-// Store data (5 products)
-// ------------------------------------
 
 const store: Store = {
   storeName: "My Online Store",
@@ -68,54 +53,40 @@ const store: Store = {
   ],
 };
 
-// ------------------------------------
-// Shopping cart: array of product IDs
-// ------------------------------------
-
 const cart = [1, 3, 5];
 
-// ------------------------------------
-// Functions to implement
-// ------------------------------------
-
-function getAvailableProducts(
-  store /* : add type here */
-) /* : add return types */ {
-  return [];
+function getAvailableProducts(store : Store) : Product[] {
+  return store.products.filter((product)=>product.inStock===true);
 }
 
-function getProductsInPriceRange(
-  store /* : add type here */,
-  minPrice /* : add type here */,
-  maxPrice /* : add type here */
-) /* : add return types */ {
-  return [];
+function getProductsInPriceRange(store : Store, minPrice : number ,maxPrice : number ) : Product[] {
+  return store.products.filter((product)=> product.price>=minPrice && product.price<=maxPrice);
 }
 
-function getProductsByTag(
-  store /* : add type here */,
-  tag /* : add type here */
-) /* : add return types */ {
-  return [];
+function getProductsByTag(store : Store ,tag : string) : Product[]{
+  const prodWithTag : Product[] = [];
+  store.products.forEach((product : Product) =>{
+    if (product.tags.includes(tag))
+      prodWithTag.push(product);
+  });
+  return prodWithTag;
 }
 
-function getAvailableProductsByTag(
-  store /* : add type here */,
-  tag /* : add type here */
-) /* : add return types */ {
-  return [];
+function getAvailableProductsByTag(store : Store, tag : string) : Product[] {
+  const prodByTag : Product[] = getProductsByTag(store, tag);
+  return prodByTag.filter((product) => product.inStock===true);
 }
 
-function getCartProducts(
-  store /* : add type here */,
-  cart /* : add type here */
-) /* : add return types */ {
-  return [];
+function getCartProducts(store : Store , cart : number[] ) : Product[] {
+  return store.products.filter((product) => cart.includes(product.id));
 }
 
-function getCartTotalInStock(
-  store /* : add type here */,
-  cart /* : add type here */
-) /* : add return types */ {
-  return 0;
+function getCartTotalInStock(store : Store ,cart : number[]) : number{
+  const productsToSum : Product[] = store.products.filter((product) => cart.includes(product.id) && product.inStock === true);
+  let sum = 0;
+  productsToSum.forEach((product) => {
+    sum+=product.price;
+  })
+  return sum;
 }
+

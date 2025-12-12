@@ -56,7 +56,7 @@ const store: Store = {
 const cart = [1, 3, 5];
 
 function getAvailableProducts(store : Store) : Product[] {
-  return store.products.filter((product)=>product.inStock===true);
+  return store.products.filter((product)=>product.inStock);
 }
 
 function getProductsInPriceRange(store : Store, minPrice : number ,maxPrice : number ) : Product[] {
@@ -64,17 +64,12 @@ function getProductsInPriceRange(store : Store, minPrice : number ,maxPrice : nu
 }
 
 function getProductsByTag(store : Store ,tag : string) : Product[]{
-  const prodWithTag : Product[] = [];
-  store.products.forEach((product : Product) =>{
-    if (product.tags.includes(tag))
-      prodWithTag.push(product);
-  });
-  return prodWithTag;
+  return store.products.filter((prod)=>prod.tags.includes(tag));
 }
 
 function getAvailableProductsByTag(store : Store, tag : string) : Product[] {
   const prodByTag : Product[] = getProductsByTag(store, tag);
-  return prodByTag.filter((product) => product.inStock===true);
+  return prodByTag.filter((product) => product.inStock);
 }
 
 function getCartProducts(store : Store , cart : number[] ) : Product[] {
